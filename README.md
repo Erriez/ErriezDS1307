@@ -20,8 +20,6 @@ This is a DS1307 I2C RTC library for Arduino.
 
 Any Arduino hardware with a TWI interface and ```Wire.h``` support.
 
-![DS1307 - Arduino UNO](https://raw.githubusercontent.com/Erriez/ErriezDS1307/master/extras/DS1307_Arduino_UNO.png)
-
 ## Pins
 
 | Pins board - DS1307            | VCC  | GND  |    SDA     |    SCL     |    SQW     |
@@ -51,7 +49,7 @@ Arduino IDE | Examples | Erriez DS1307 RTC:
 ## Documentation
 
 - [Doxygen online HTML](https://erriez.github.io/ErriezDS1307) 
-- [Doxygen PDF](https://github.com/Erriez/ErriezDS1307/raw/gh-pages/latex/ErriezDS1307.pdf)
+- [Doxygen PDF](https://github.com/Erriez/ErriezDS1307/blob/master/ErriezDS1307.pdf)
 - [DS1307 datasheet](https://github.com/Erriez/ErriezDS1307/blob/master/extras/DS1307.pdf)
 
 
