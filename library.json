@@ -1,0 +1,25 @@
+{
+    "name": "ErriezDS1307",
+    "version": "1.0.0",
+    "keywords": "arduino, library, ds1307, i2c, rtc, real-time-clock, date, time, libc, time.h, utc, epoch, sqw-out, documentation, examples, erriez",
+    "description": "Erriez DS1307 I2C RTC (Real Time Clock) library for Arduino",
+    "homepage": "https://github.com/Erriez/ErriezDS1307",
+    "license": "MIT",
+    "authors": {
+        "name": "Erriez",
+        "url": "https://github.com/Erriez",
+        "maintainer": true
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Erriez/ErriezDS1307.git",
+        "branch": "master"
+    },
+    "frameworks": "arduino",
+    "platforms": [
+        "atmelavr",
+        "atmelsam",
+        "espressif8266",
+        "espressif32"
+    ]
+}
