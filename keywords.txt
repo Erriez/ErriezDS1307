@@ -1,0 +1,37 @@
+#######################################
+# Erriez DS1307 RTC library for Arduino
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+DS1307	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+begin	KEYWORD2
+oscillatorEnable	KEYWORD2
+isOscillatorStopped	KEYWORD2
+getEpoch	KEYWORD2
+setEpoch	KEYWORD2
+read	KEYWORD2
+write	KEYWORD2
+setTime	KEYWORD2
+getTime	KEYWORD2
+setDateTime	KEYWORD2
+setSquareWave	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+ds1307	KEYWORD1
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+SquareWaveDisable	LITERAL1
+SquareWave1Hz	LITERAL1
+SquareWave4096Hz	LITERAL1
+SquareWave8192Hz	LITERAL1
+SquareWave32768Hz 	LITERAL1
