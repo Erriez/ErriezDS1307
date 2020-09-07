@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['oscillatorenable',['oscillatorEnable',['../class_erriez_d_s1307.html#aa6ec3b9b71011958f158897ad198aca9',1,'ErriezDS1307']]]
+  ['isrunning',['isRunning',['../class_erriez_d_s1307.html#a091d875739b1e372651596fb356bcfb7',1,'ErriezDS1307']]]
 ];

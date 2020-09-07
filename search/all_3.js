@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['getepoch',['getEpoch',['../class_erriez_d_s1307.html#a3534f588441ba96c6b12475f0d440f49',1,'ErriezDS1307']]],
-  ['gettime',['getTime',['../class_erriez_d_s1307.html#aac10af9f0182da72b87e7634f5f166ef',1,'ErriezDS1307']]]
+  ['erriezds1307',['ErriezDS1307',['../class_erriez_d_s1307.html',1,'']]],
+  ['erriezds1307_2ecpp',['ErriezDS1307.cpp',['../_erriez_d_s1307_8cpp.html',1,'']]],
+  ['erriezds1307_2eh',['ErriezDS1307.h',['../_erriez_d_s1307_8h.html',1,'']]]
 ];

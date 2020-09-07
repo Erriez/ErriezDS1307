@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dectobcd',['decToBcd',['../class_erriez_d_s1307.html#af959d2967db009577b45be71ef741c14',1,'ErriezDS1307']]]
+  ['clockenable',['clockEnable',['../class_erriez_d_s1307.html#a2e434e5a26ec5766f553e1015cf6ca7f',1,'ErriezDS1307']]]
 ];
