@@ -5,7 +5,14 @@
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
-DS1307	KEYWORD1
+ErriezDS1307	KEYWORD1
+tm_sec	KEYWORD1
+tm_min	KEYWORD1
+tm_hour	KEYWORD1
+tm_wday	KEYWORD1
+tm_mday	KEYWORD1
+tm_mon	KEYWORD1
+tm_year	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -28,6 +35,8 @@ writeRegister	KEYWORD2
 # Instances (KEYWORD2)
 #######################################
 ds1307	KEYWORD1
+dt	KEYWORD1
+t	KEYWORD1
 
 #######################################
 # Constants (LITERAL1)
