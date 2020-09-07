@@ -95,8 +95,8 @@ public:
     bool setTime(uint8_t hour, uint8_t min, uint8_t sec);
     bool getTime(uint8_t *hour, uint8_t *min, uint8_t *sec);
     bool setDateTime(uint8_t hour, uint8_t min, uint8_t sec,
-                       uint8_t mday, uint8_t mon, uint16_t year,
-                       uint8_t wday);
+                     uint8_t mday, uint8_t mon, uint16_t year,
+                     uint8_t wday);
 
     // Output signal control
     bool setSquareWave(SquareWave squareWave);
