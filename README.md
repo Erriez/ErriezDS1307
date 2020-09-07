@@ -166,6 +166,15 @@ if (!ds1307.getEpoch(&t)) {
 }
 ```
 
+**Write Unix Epoch UTC**
+
+```c++
+// Write Unix epoch UTC to RTC
+if (!ds1307.setEpoch(1599416430UL)) {
+    // Error: Set epoch failed
+}
+```
+
 **Square Wave Out (SQW)**
 
 ```c++
