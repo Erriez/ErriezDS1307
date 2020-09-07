@@ -30,13 +30,13 @@
  */
 
 #include <Wire.h>
-#include <ErriezDS1307.h> 
+#include <ErriezDS1307.h>
 
 // Create RTC object
 ErriezDS1307 ds1307;
 
 
-void setup() 
+void setup()
 {
     // Initialize serial port
     delay(500);
@@ -68,7 +68,7 @@ void setup()
     ds1307.setSquareWave(SquareWaveDisable);
 }
 
-void loop() 
+void loop()
 {
     struct tm dt;
 

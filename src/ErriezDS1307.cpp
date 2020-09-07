@@ -239,7 +239,7 @@ bool ErriezDS1307::write(const struct tm *dt)
     uint8_t buffer[7];
 
     // Encode date time from decimal to BCD
-    buffer[0] = decToBcd(dt->tm_sec) & 0x7F;
+    buffer[0] = decToBcd(dt->tm_sec) & 0x7F; // CH bit cleared in seconds register
     buffer[1] = decToBcd(dt->tm_min) & 0x7F;
     buffer[2] = decToBcd(dt->tm_hour) & 0x3F;
     buffer[3] = decToBcd(dt->tm_wday + 1) & 0x07;
@@ -334,7 +334,7 @@ bool ErriezDS1307::getTime(uint8_t *hour, uint8_t *min, uint8_t *sec)
  * \param year
  *      Year 2000..2099
  * \param wday
- *      Day of the week 0..6 (0=Sunday, .. 6=Sunday)
+ *      Day of the week 0..6 (0=Sunday, .. 6=Saturday)
  * \retval true
  *      Success.
  * \retval false

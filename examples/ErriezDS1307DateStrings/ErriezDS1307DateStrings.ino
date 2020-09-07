@@ -23,7 +23,7 @@
  */
 
 /*!
- * \brief DS1307 high accurate RTC getting started example for Arduino
+ * \brief DS1307 RTC getting started example for Arduino
  * \details
  *    Source:         https://github.com/Erriez/ErriezDS1307
  *    Documentation:  https://erriez.github.io/ErriezDS1307
@@ -104,8 +104,6 @@ void setup()
 
 void loop()
 {
-    int8_t temperature;
-    uint8_t fraction;
     char buf[32];
     time_t t;
 

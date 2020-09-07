@@ -76,8 +76,8 @@ bool getBuildTime(const char *str)
 bool getBuildDate(const char *str)
 {
     const char *monthName[] = {
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     };
     uint8_t monthIndex;
     char month[12];
