@@ -208,7 +208,7 @@ bool ErriezDS1307::read(struct tm *dt)
     dt->tm_wday = bcdToDec(buffer[3] & 0x07) - 1;
     dt->tm_mday = bcdToDec(buffer[4] & 0x3F);
     dt->tm_mon = bcdToDec(buffer[5] & 0x1f) - 1;
-    dt->tm_year = 100 + bcdToDec(buffer[6]);
+    dt->tm_year = bcdToDec(buffer[6]) + 100;
 
     return true;
 }
@@ -226,12 +226,12 @@ bool ErriezDS1307::write(const struct tm *dt)
     uint8_t buffer[7];
 
     // Encode date time from decimal to BCD
-    buffer[0] = decToBcd(dt->tm_sec & 0x7F);
-    buffer[1] = decToBcd(dt->tm_min & 0x7F);
-    buffer[2] = decToBcd(dt->tm_hour & 0x3F);
-    buffer[3] = decToBcd(((dt->tm_wday + 1) & 0x07));
-    buffer[4] = decToBcd(dt->tm_mday & 0x3F);
-    buffer[5] = decToBcd(((dt->tm_mon + 1) & 0x1F));
+    buffer[0] = decToBcd(dt->tm_sec) & 0x7F;
+    buffer[1] = decToBcd(dt->tm_min) & 0x7F;
+    buffer[2] = decToBcd(dt->tm_hour) & 0x3F;
+    buffer[3] = decToBcd(dt->tm_wday + 1) & 0x07;
+    buffer[4] = decToBcd(dt->tm_mday) & 0x3F;
+    buffer[5] = decToBcd(dt->tm_mon + 1) & 0x1F;
     buffer[6] = decToBcd(dt->tm_year % 100);
 
     // Write BCD encoded buffer to RTC registers
