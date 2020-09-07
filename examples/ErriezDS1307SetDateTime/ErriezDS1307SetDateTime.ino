@@ -74,14 +74,15 @@ bool getBuildTime(const char *str)
 
 bool getBuildDate(const char *str)
 {
-    const char *monthName[12] = {
+    const char *monthName[] = {
             "Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     };
+    uint8_t monthIndex;
     char month[12];
     int dayMonth;
     int year;
-    uint8_t monthIndex;
+    time_t t;
 
     // Convert build time macro to date
     if (sscanf(str, "%s %d %d", month, &dayMonth, &year) != 3) {
@@ -99,35 +100,39 @@ bool getBuildDate(const char *str)
         return false;
     }
 
+    // Set date
     dt.tm_mday = dayMonth;
     dt.tm_mon = monthIndex;
     dt.tm_year = year - 1900;
 
+    // Calculate day of the week
+    t = mktime(&dt);
+    dt.tm_wday = localtime(&t)->tm_wday;
+
     return true;
 }
 
-void rtcSetDateTime()
+bool rtcSetDateTime()
 {
-    Serial.print(F("Build date time: "));
-
     // Convert compile date/time to date/time string
     if (!getBuildDate(__DATE__) || !getBuildTime(__TIME__)) {
-        Serial.print(F("FAILED"));
-        while (1) {
-            delay(1000);
-        }
+        Serial.print(F("Build date/time error"));
+        return false;
     }
 
     // Print build date/time
+    Serial.print(F("Build date time: "));
     Serial.println(asctime(&dt));
 
     // Set new date time
     Serial.print(F("Set RTC date time..."));
-    if (ds1307.write(&dt)) {
-        Serial.println(F("OK"));
-    } else {
+    if (!ds1307.write(&dt)) {
         Serial.println(F("FAILED"));
+    } else {
+        Serial.println(F("OK"));
     }
+
+    return true;
 }
 
 void setup()
@@ -150,7 +155,12 @@ void setup()
     rtcInit();
 
     // Set date/time
-    rtcSetDateTime();
+    if (!rtcSetDateTime()) {
+        // Could not parse build date/time to program RTC
+        while (1) {
+            delay(1000);
+        }
+    }
 }
 
 void loop()
