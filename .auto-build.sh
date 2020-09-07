@@ -22,6 +22,7 @@ function autobuild()
     # platformio lib --global install https://github.com/Erriez/ErriezSerialTerminal
 
     echo "Building examples..."
+    platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307DateStrings/ErriezDS1307DateStrings.ino
     platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307Read/ErriezDS1307Read.ino
     platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307SetDateTime/ErriezDS1307SetDateTime.ino
     platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307Test/ErriezDS1307Test.ino
