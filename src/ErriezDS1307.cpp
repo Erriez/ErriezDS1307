@@ -287,6 +287,16 @@ bool ErriezDS1307::getTime(uint8_t *hour, uint8_t *min, uint8_t *sec)
     *min = bcdToDec(buffer[1] & 0x7F);
     *hour = bcdToDec(buffer[2] & 0x3f);
 
+    // Check buffer for valid data
+    if ((*sec > 59) || (*min > 59) || (*hour > 23)) {
+        // Invalid time
+        *sec = 0x00;
+        *min = 0x00;
+        *hour = 0x00;
+
+        return false;
+    }
+
     return true;
 }
 
