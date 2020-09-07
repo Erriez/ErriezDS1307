@@ -60,8 +60,8 @@ ErriezDS1307 ds1307;
 
 void setup()
 {
-    struct tm dtw = {0};
-    struct tm dtr = {0};
+    struct tm dtw = { 0 };
+    struct tm dtr;
     uint8_t hour, min, sec;
 
     // Startup delay to initialize serial port
@@ -94,9 +94,22 @@ void setup()
     }
     CHK(ds1307.isOscillatorStopped() == false);
 
-    // Test epoch
+    // Test epoch write
     CHK(ds1307.setEpoch(EPOCH_TEST) == Success);
-    CHK(ds1307.getEpoch() == EPOCH_TEST);
+    delay(1500);
+
+    // Verify epoch struct tm
+    CHK(ds1307.read(&dtr) == Success);
+    CHK(dtr.tm_sec == 31);
+    CHK(dtr.tm_min == 20);
+    CHK(dtr.tm_hour == 18);
+    CHK(dtr.tm_mday == 6);
+    CHK(dtr.tm_mon == 8);
+    CHK(dtr.tm_year == 120);
+    CHK(dtr.tm_wday == 0);
+
+    // Verify epoch time_t
+    CHK(ds1307.getEpoch() == (EPOCH_TEST + 1));
 
     // Test write
     dtw.tm_hour = 12;
