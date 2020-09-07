@@ -193,10 +193,13 @@ bool ErriezDS1307::read(struct tm *dt)
     uint8_t buffer[7];
 
     // Read clock date and time registers
-    if (!readBuffer(0x00, &buffer, sizeof(buffer))) {
+    if (!readBuffer(0x00, buffer, sizeof(buffer))) {
         memset(dt, 0, sizeof(struct tm));
         return false;
     }
+
+    // Clear dt
+    memset(dt, 0, sizeof(struct tm));
 
     // Convert BCD buffer to Decimal
     dt->tm_sec = bcdToDec(buffer[0] & 0x7F);
