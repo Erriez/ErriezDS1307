@@ -72,6 +72,10 @@ bool ErriezDS1307::begin()
  * \param enable
  *      true:  Enable RTC clock.\n
  *      false: Stop RTC clock.
+ * \retval true
+ *      Success.
+ * \retval false
+ *      Oscillator enable failed.
  */
 bool ErriezDS1307::oscillatorEnable(bool enable)
 {
@@ -137,7 +141,7 @@ time_t ErriezDS1307::getEpoch()
 
     // Read time structure
     if (!read(&dt)) {
-        // Read RTC failed
+        // RTC read failed
         return 0;
     }
 
@@ -149,7 +153,7 @@ time_t ErriezDS1307::getEpoch()
     t += UNIX_OFFSET;
 #endif
 
-    // Return Unix epoch
+    // Return Unix epoch UTC
     return t;
 }
 
@@ -239,15 +243,19 @@ bool ErriezDS1307::write(const struct tm *dt)
 }
 
 /*!
- * \brief Set RTC time
+ * \brief Write time to RTC.
+ * \details
+ *      Write hour, minute and second registers to RTC.
  * \param hour
- *      Hours
+ *      Hours 0..23.
  * \param min
- *      Minutes
+ *      Minutes 0..59.
  * \param sec
- *      Seconds
- * \return writeBuffer
- *      See readBuffer returns.
+ *      Seconds 0..59.
+ * \retval true
+ *      Success.
+ * \retval false
+ *      Set time failed.
  */
 bool ErriezDS1307::setTime(uint8_t hour, uint8_t min, uint8_t sec)
 {
@@ -263,21 +271,25 @@ bool ErriezDS1307::setTime(uint8_t hour, uint8_t min, uint8_t sec)
 }
 
 /*!
- * \brief Get time from RTC
+ * \brief Read time from RTC.
+ * \details
+ *      Read hour, minute and second registers from RTC.
  * \param hour
- *      Hours
+ *      Hours 0..23.
  * \param min
- *      Minutes
+ *      Minutes 0..59.
  * \param sec
- *      Seconds
- * \return readBuffer
- *      See readBuffer returns.
+ *      Seconds 0..59.
+ * \retval true
+ *      Success.
+ * \retval false
+ *      Invalid second, minute or hour read from RTC. The time is set to zero.
  */
 bool ErriezDS1307::getTime(uint8_t *hour, uint8_t *min, uint8_t *sec)
 {
     uint8_t buffer[3];
 
-    // Read clock date and time registers
+    // Read RTC time registers
     if (!readBuffer(0x00, &buffer, sizeof(buffer))) {
         return false;
     }
@@ -285,7 +297,7 @@ bool ErriezDS1307::getTime(uint8_t *hour, uint8_t *min, uint8_t *sec)
     // Convert BCD buffer to Decimal
     *sec = bcdToDec(buffer[0] & 0x7F);
     *min = bcdToDec(buffer[1] & 0x7F);
-    *hour = bcdToDec(buffer[2] & 0x3f);
+    *hour = bcdToDec(buffer[2] & 0x3F);
 
     // Check buffer for valid data
     if ((*sec > 59) || (*min > 59) || (*hour > 23)) {
@@ -316,12 +328,14 @@ bool ErriezDS1307::getTime(uint8_t *hour, uint8_t *min, uint8_t *sec)
  *      Year 2000..2099
  * \param wday
  *      Day of the week 0..6 (0=Sunday, .. 6=Sunday)
- * \return write
- *      See write returns.
+ * \retval true
+ *      Success.
+ * \retval false
+ *      Set time failed.
  */
 bool ErriezDS1307::setDateTime(uint8_t hour, uint8_t min, uint8_t sec,
-                 uint8_t mday, uint8_t mon, uint16_t year,
-                 uint8_t wday)
+                               uint8_t mday, uint8_t mon, uint16_t year,
+                               uint8_t wday)
 {
     struct tm dt;
 
@@ -349,6 +363,10 @@ bool ErriezDS1307::setDateTime(uint8_t hour, uint8_t min, uint8_t sec,
  *          4096Hz:     SquareWave4096Hz\n
  *          8192Hz:     SquareWave8192Hz\n
  *          32748Hz:    SquareWave32768Hz
+ * \retval true
+ *      Success
+ * \retval false
+ *      Set squareWave failed.
  */
 bool ErriezDS1307::setSquareWave(SquareWave squareWave)
 {
@@ -390,6 +408,10 @@ uint8_t ErriezDS1307::decToBcd(uint8_t dec)
  *      Buffer.
  * \param len
  *      Buffer length. Writing is only allowed within valid RTC registers.
+ * \retval true
+ *      Success
+ * \retval false
+ *      I2C write failed.
  */
 bool ErriezDS1307::writeBuffer(uint8_t reg, void *buffer, uint8_t len)
 {
@@ -402,6 +424,7 @@ bool ErriezDS1307::writeBuffer(uint8_t reg, void *buffer, uint8_t len)
     if (Wire.endTransmission(true) != 0) {
         return false;
     }
+
     return true;
 }
 
@@ -413,6 +436,10 @@ bool ErriezDS1307::writeBuffer(uint8_t reg, void *buffer, uint8_t len)
  *      Buffer.
  * \param len
  *      Buffer length. Reading is only allowed within valid RTC registers.
+ * \retval true
+ *      Success
+ * \retval false
+ *      I2C read failed.
  */
 bool ErriezDS1307::readBuffer(uint8_t reg, void *buffer, uint8_t len)
 {
