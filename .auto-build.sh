@@ -19,7 +19,7 @@ function autobuild()
     BOARDS_ESP="--board d1_mini --board nodemcuv2 --board lolin_d32"
 
     # echo "Installing library dependencies"
-    # platformio lib --global install https://github.com/Erriez/ErriezSerialTerminal
+    platformio lib --global install https://github.com/Erriez/ErriezSerialTerminal
 
     echo "Building examples..."
     platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307DateStrings/ErriezDS1307DateStrings.ino
