@@ -105,6 +105,10 @@ public:
     uint8_t bcdToDec(uint8_t bcd);
     uint8_t decToBcd(uint8_t dec);
 
+    // Read/write register
+    uint8_t readRegister(uint8_t reg);
+    bool writeRegister(uint8_t reg, uint8_t value);
+
     // Read/write buffer
     bool readBuffer(uint8_t reg, void *buffer, uint8_t len);
     bool writeBuffer(uint8_t reg, void *buffer, uint8_t len);

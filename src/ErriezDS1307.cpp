@@ -82,9 +82,7 @@ bool ErriezDS1307::clockEnable(bool enable)
     uint8_t regSeconds;
 
     // Read seconds register
-    if (!readBuffer(DS1307_REG_SECONDS, &regSeconds, 1)) {
-        return false;
-    }
+    regSeconds = readRegister(DS1307_REG_SECONDS);
 
     // Set or clear HT bit
     if (enable) {
@@ -96,7 +94,7 @@ bool ErriezDS1307::clockEnable(bool enable)
     }
 
     // Write seconds register
-    return writeBuffer(DS1307_REG_SECONDS, &regSeconds, 1);
+    return writeRegister(DS1307_REG_SECONDS, regSeconds);
 }
 
 /*!
@@ -389,6 +387,40 @@ uint8_t ErriezDS1307::bcdToDec(uint8_t bcd)
 uint8_t ErriezDS1307::decToBcd(uint8_t dec)
 {
     return (uint8_t)(((dec / 10) << 4) | (dec % 10));
+}
+
+/*!
+ * \brief Read register.
+ * \details
+ *      Please refer to the RTC datasheet.
+ * \param reg
+ *      RTC register number 0x00..0x12.
+ * \returns value
+ *      8-bit unsigned register value.
+ */
+uint8_t ErriezDS1307::readRegister(uint8_t reg)
+{
+    uint8_t value = 0;
+
+    // Read buffer with one 8-bit unsigned value
+    readBuffer(reg, &value, 1);
+
+    return value;
+}
+
+/*!
+ * \brief Write to RTC register.
+ * \details
+ *      Please refer to the RTC datasheet.
+ * \param reg
+ *      RTC register number 0x00..0x12.
+ * \param value
+ *      8-bit unsigned register value.
+ */
+bool ErriezDS1307::writeRegister(uint8_t reg, uint8_t value)
+{
+    // Write buffer with one 8-bit unsigned value
+    return writeBuffer(reg, &value, 1);
 }
 
 /*!

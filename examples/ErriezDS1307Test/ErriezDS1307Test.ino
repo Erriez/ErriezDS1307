@@ -60,7 +60,7 @@ ErriezDS1307 ds1307;
 
 void setup()
 {
-    struct tm dtw = { 0 };
+    struct tm dtw;
     struct tm dtr;
     uint8_t hour, min, sec;
 
