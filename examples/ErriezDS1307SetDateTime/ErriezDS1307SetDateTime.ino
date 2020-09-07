@@ -27,12 +27,10 @@
  * \details
  *    Source:         https://github.com/Erriez/ErriezDS1307
  *    Documentation:  https://erriez.github.io/ErriezDS1307
- *
- *    Connect the SQW/OUT pin to an Arduino interrupt pin
  */
 
 #include <Wire.h>
-#include <ErriezDS1307.h>   // https://github.com/Erriez/ErriezDS1307
+#include <ErriezDS1307.h>
 
 // Create DS1307 RTC object
 ErriezDS1307 ds1307;
@@ -137,10 +135,8 @@ bool rtcSetDateTime()
 
 void setup()
 {
-    // Startup delay to initialize serial port
-    delay(500);
-
     // Initialize serial port
+    delay(500);
     Serial.begin(115200);
     while (!Serial) {
         ;
@@ -167,7 +163,7 @@ void loop()
 {
     // Get date/time
     if (!ds1307.read(&dt)) {
-        Serial.println(F("DS1307 read failed"));
+        Serial.println(F("RTC read failed"));
     } else {
         Serial.println(asctime(&dt));
     }

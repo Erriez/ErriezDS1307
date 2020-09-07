@@ -54,7 +54,7 @@ ErriezDS1307 ds1307;
     }                                   \
 }
 
-// A test epoch "Sunday, September 6, 2020 6:20:30 PM"
+// A test epoch "Sunday, September 6, 2020 18:20:30"
 #define EPOCH_TEST      1599416430UL
 
 
@@ -64,11 +64,12 @@ void setup()
     struct tm dtr;
     uint8_t hour, min, sec;
 
-    // Startup delay to initialize serial port
-    delay(500);
-
     // Initialize serial port
     Serial.begin(115200);
+    delay(500);
+    while (!Serial) {
+        ;
+    }
     Serial.println(F("\nErriez DS1307 begin test"));
 
     // Initialize I2C

@@ -39,7 +39,11 @@ ErriezDS1307 ds1307;
 void setup() 
 {
     // Initialize serial port
+    delay(500);
     Serial.begin(115200);
+    while (!Serial) {
+        ;
+    }
     Serial.println(F("\nErriez DS1307 read example"));
 
     // Initialize I2C
@@ -51,6 +55,9 @@ void setup()
         Serial.println(F("Error: DS1307 not found"));
         delay(3000);
     }
+
+    // Set square wave out pin
+    // SquareWaveDisable, SquareWave1Hz, SquareWave4096Hz, SquareWave8192Hz, SquareWave32768Hz
     ds1307.setSquareWave(SquareWaveDisable);
 }
 
