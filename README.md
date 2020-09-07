@@ -89,6 +89,9 @@ void setup()
 if (ds1307.isOscillatorStopped()) {
     // Error: DS1307 RTC oscillator stopped. Date/time cannot be trusted. 
     // Set new date/time before reading date/time.
+
+    // Enable oscillator
+    ds1302.clockEnable(true);
 }
 ```
 

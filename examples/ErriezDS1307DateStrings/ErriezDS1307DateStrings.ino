@@ -95,7 +95,7 @@ void setup()
     }
 
     // Enable oscillator
-    DS1307.oscillatorEnable(true);
+    DS1307.clockEnable(true);
 
     // Disable square wave out
     // SquareWaveDisable, SquareWave1Hz, SquareWave4096Hz, SquareWave8192Hz, SquareWave32768Hz

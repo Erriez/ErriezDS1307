@@ -84,8 +84,8 @@ public:
     bool begin();
 
     // Oscillator functions
-    bool oscillatorEnable(bool enable);
-    bool isOscillatorStopped();
+    bool isRunning();
+    bool clockEnable(bool enable=true);
 
     // Set/get date/time structure
     time_t getEpoch();

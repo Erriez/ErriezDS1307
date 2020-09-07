@@ -47,6 +47,9 @@ void rtcInit()
         delay(3000);
     }
 
+    // Enable RTC clock
+    ds1307.clockEnable(true);
+
     // Set square wave out pin
     // SquareWaveDisable, SquareWave1Hz, SquareWave4096Hz, SquareWave8192Hz, SquareWave32768Hz
     ds1307.setSquareWave(SquareWaveDisable);

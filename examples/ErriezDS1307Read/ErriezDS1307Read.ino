@@ -56,6 +56,13 @@ void setup()
         delay(3000);
     }
 
+    // Enable RTC clock
+    if (!ds1307.isRunning()) {
+        ds1307.clockEnable(true);
+        ds1307.setTime(12, 0, 0);
+        Serial.println(F("DS1302 clock reset"));
+    }
+
     // Set square wave out pin
     // SquareWaveDisable, SquareWave1Hz, SquareWave4096Hz, SquareWave8192Hz, SquareWave32768Hz
     ds1307.setSquareWave(SquareWaveDisable);

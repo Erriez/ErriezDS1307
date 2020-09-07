@@ -77,7 +77,7 @@ bool ErriezDS1307::begin()
  * \retval false
  *      Oscillator enable failed.
  */
-bool ErriezDS1307::oscillatorEnable(bool enable)
+bool ErriezDS1307::clockEnable(bool enable)
 {
     uint8_t regSeconds;
 
@@ -105,27 +105,20 @@ bool ErriezDS1307::oscillatorEnable(bool enable)
  *      The application is responsible for checking the CH (Clock Halt) bit before reading
  *      date/time date. This function may be used to judge the validity of the date/time registers.
  * \retval true
+ *      RTC oscillator is running.
+ * \retval false
  *      The date/time data is invalid when the CH bit is set. The application should enable the
  *      oscillator, or program a new date/time.
- * \retval false
- *      RTC oscillator is running.
  */
-bool ErriezDS1307::isOscillatorStopped()
+bool ErriezDS1307::isRunning()
 {
-    uint8_t regSeconds;
-
-    // Read seconds register
-    if (!readBuffer(DS1307_REG_SECONDS, &regSeconds, 1)) {
-        return true;
-    }
-
     // Check CH bit in seconds register
-    if (regSeconds & (1 << DS1307_SEC_CH)) {
+    if (readRegister(DS1307_REG_SECONDS) & (1 << DS1307_SEC_CH)) {
         // RTC clock stopped
-        return true;
+        return false;
     } else {
         // RTC clock is running
-        return false;
+        return true;
     }
 }
 

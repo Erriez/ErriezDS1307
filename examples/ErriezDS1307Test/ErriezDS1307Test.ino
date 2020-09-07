@@ -90,10 +90,10 @@ void setup()
     CHK(ds1307.setSquareWave(SquareWave32768Hz) == Success);
 
     // Test oscillator
-    if (ds1307.isOscillatorStopped()) {
-        CHK(ds1307.oscillatorEnable(true));
+    if (!ds1307.isRunning()) {
+        CHK(ds1307.clockEnable(true));
     }
-    CHK(ds1307.isOscillatorStopped() == false);
+    CHK(ds1307.isRunning() == true);
 
     // Test epoch write
     CHK(ds1307.setEpoch(EPOCH_TEST) == Success);
