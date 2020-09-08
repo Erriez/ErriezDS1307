@@ -36,7 +36,7 @@
 #include <ErriezDS1307.h>
 
 // Create DS1307 RTC object
-ErriezDS1307 DS1307;
+ErriezDS1307 ds1307;
 
 // Create date time object
 struct tm dt;
@@ -89,17 +89,17 @@ void setup()
     Wire.setClock(400000);
 
     // Initialize RTC
-    while (!DS1307.begin()) {
+    while (!ds1307.begin()) {
         Serial.println(F("Error: Could not detect DS1307 RTC"));
         delay(3000);
     }
 
     // Enable oscillator
-    DS1307.clockEnable(true);
+    ds1307.clockEnable(true);
 
     // Disable square wave out
     // SquareWaveDisable, SquareWave1Hz, SquareWave4096Hz, SquareWave8192Hz, SquareWave32768Hz
-    DS1307.setSquareWave(SquareWaveDisable);
+    ds1307.setSquareWave(SquareWaveDisable);
 }
 
 void loop()
@@ -108,14 +108,14 @@ void loop()
     time_t t;
 
     // Read RTC date and time from RTC
-    if (!DS1307.read(&dt)) {
+    if (!ds1307.read(&dt)) {
         Serial.println(F("Error: RTC read failed"));
         delay(3000);
         return;
     }
 
     // Print Unix Epoch time
-    t = DS1307.getEpoch();
+    t = ds1307.getEpoch();
     snprintf(buf, sizeof(buf), "%lu", t);
     Serial.print(buf);
     Serial.print(F("  "));
