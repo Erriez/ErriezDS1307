@@ -13,6 +13,13 @@ tm_wday	KEYWORD1
 tm_mday	KEYWORD1
 tm_mon	KEYWORD1
 tm_year	KEYWORD1
+sec	KEYWORD1
+min	KEYWORD1
+hour	KEYWORD1
+wday	KEYWORD1
+mday	KEYWORD1
+mon	KEYWORD1
+year	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -27,20 +34,25 @@ write	KEYWORD2
 setTime	KEYWORD2
 getTime	KEYWORD2
 setDateTime	KEYWORD2
+getDateTime	KEYWORD2
 setSquareWave	KEYWORD2
-readRegister	KEYWORD2
 writeRegister	KEYWORD2
+readRegister	KEYWORD2
+writeBuffer	KEYWORD2
+readBuffer	KEYWORD2
 
 #######################################
 # Instances (KEYWORD2)
 #######################################
 ds1307	KEYWORD1
+rtc	KEYWORD1
 dt	KEYWORD1
 t	KEYWORD1
 
 #######################################
 # Constants (LITERAL1)
 #######################################
+DS1307_NUM_REGS	LITERAL1
 SquareWaveDisable	LITERAL1
 SquareWave1Hz	LITERAL1
 SquareWave4096Hz	LITERAL1

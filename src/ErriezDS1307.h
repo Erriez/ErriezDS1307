@@ -87,7 +87,7 @@ public:
     bool isRunning();
     bool clockEnable(bool enable=true);
 
-    // Set/get date/time structure
+    // Set/get date/time
     time_t getEpoch();
     bool setEpoch(time_t t);
     bool read(struct tm *dt);
@@ -97,6 +97,9 @@ public:
     bool setDateTime(uint8_t hour, uint8_t min, uint8_t sec,
                      uint8_t mday, uint8_t mon, uint16_t year,
                      uint8_t wday);
+    bool getDateTime(uint8_t *hour, uint8_t *min, uint8_t *sec,
+                     uint8_t *mday, uint8_t *mon, uint16_t *year,
+                     uint8_t *wday);
 
     // Output signal control
     bool setSquareWave(SquareWave squareWave);

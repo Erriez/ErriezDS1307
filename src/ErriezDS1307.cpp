@@ -68,7 +68,32 @@ bool ErriezDS1307::begin()
 }
 
 /*!
- * \brief Enable or disable oscillator (Clock Halt bit in seconds register).
+ * \brief Read RTC CH (Clock Halt) from seconds register.
+ * \details
+ *      The application is responsible for checking the CH (Clock Halt) bit before reading
+ *      date/time date. This function may be used to judge the validity of the date/time registers.
+ * \retval true
+ *      RTC clock is running.
+ * \retval false
+ *      The date/time data is invalid when the CH bit is set. The application should enable the
+ *      oscillator, or program a new date/time.
+ */
+bool ErriezDS1307::isRunning()
+{
+    // Return status CH (Clock Halt) bit from seconds register
+    if (readRegister(DS1307_REG_SECONDS) & (1 << DS1307_SEC_CH)) {
+        // RTC clock stopped
+        return false;
+    } else {
+        // RTC clock is running
+        return true;
+    }
+}
+
+/*!
+ * \brief Enable or disable oscillator.
+ * \details
+ *      Clear or set CH (Clock Halt) bit to seconds register
  * \param enable
  *      true:  Enable RTC clock.\n
  *      false: Stop RTC clock.
@@ -95,29 +120,6 @@ bool ErriezDS1307::clockEnable(bool enable)
 
     // Write seconds register
     return writeRegister(DS1307_REG_SECONDS, regSeconds);
-}
-
-/*!
- * \brief Read RTC CH (Clock Halt) from seconds register.
- * \details
- *      The application is responsible for checking the CH (Clock Halt) bit before reading
- *      date/time date. This function may be used to judge the validity of the date/time registers.
- * \retval true
- *      RTC oscillator is running.
- * \retval false
- *      The date/time data is invalid when the CH bit is set. The application should enable the
- *      oscillator, or program a new date/time.
- */
-bool ErriezDS1307::isRunning()
-{
-    // Check CH bit in seconds register
-    if (readRegister(DS1307_REG_SECONDS) & (1 << DS1307_SEC_CH)) {
-        // RTC clock stopped
-        return false;
-    } else {
-        // RTC clock is running
-        return true;
-    }
 }
 
 /*!
@@ -152,8 +154,10 @@ time_t ErriezDS1307::getEpoch()
  * \brief Write Unix epoch UTC time to RTC
  * \param t
  *      time_t time
- * \return
- *      See write returns.
+ * \retval true
+ *      Success.
+ * \retval false
+ *      Set epoch failed.
  */
 bool ErriezDS1307::setEpoch(time_t t)
 {
@@ -181,7 +185,7 @@ bool ErriezDS1307::setEpoch(time_t t)
  * \retval true
  *      Success
  * \retval false
- *      RTC read failed.
+ *      Read failed.
  */
 bool ErriezDS1307::read(struct tm *dt)
 {
@@ -199,10 +203,10 @@ bool ErriezDS1307::read(struct tm *dt)
     // Convert BCD buffer to Decimal
     dt->tm_sec = bcdToDec(buffer[0] & 0x7F);
     dt->tm_min = bcdToDec(buffer[1] & 0x7F);
-    dt->tm_hour = bcdToDec(buffer[2] & 0x3f);
+    dt->tm_hour = bcdToDec(buffer[2] & 0x3F);
     dt->tm_wday = bcdToDec(buffer[3] & 0x07);
     dt->tm_mday = bcdToDec(buffer[4] & 0x3F);
-    dt->tm_mon = bcdToDec(buffer[5] & 0x1f);
+    dt->tm_mon = bcdToDec(buffer[5] & 0x1F);
     dt->tm_year = bcdToDec(buffer[6]) + 100; // 2000-1900
 
     // Month: 0..11
@@ -233,13 +237,17 @@ bool ErriezDS1307::read(struct tm *dt)
  *      register write operation. This function enables the oscillator.
  * \param dt
  *      Date/time struct tm. Providing invalid date/time data may result in unpredictable behavior.
+ * \retval true
+ *      Success.
+ * \retval false
+ *      Write failed.
  */
 bool ErriezDS1307::write(const struct tm *dt)
 {
     uint8_t buffer[7];
 
     // Encode date time from decimal to BCD
-    buffer[0] = decToBcd(dt->tm_sec) & 0x7F; // CH bit cleared in seconds register
+    buffer[0] = decToBcd(dt->tm_sec) & 0x7F; // Clear CH bit in seconds register
     buffer[1] = decToBcd(dt->tm_min) & 0x7F;
     buffer[2] = decToBcd(dt->tm_hour) & 0x3F;
     buffer[3] = decToBcd(dt->tm_wday + 1) & 0x07;
@@ -297,12 +305,12 @@ bool ErriezDS1307::getTime(uint8_t *hour, uint8_t *min, uint8_t *sec)
     uint8_t buffer[3];
 
     // Read RTC time registers
-    if (!readBuffer(0x00, &buffer, sizeof(buffer))) {
+    if (!readBuffer(0x00, buffer, sizeof(buffer))) {
         return false;
     }
 
     // Convert BCD buffer to Decimal
-    *sec = bcdToDec(buffer[0] & 0x7F);
+    *sec = bcdToDec(buffer[0] & 0x7F); // Without CH bit from seconds register
     *min = bcdToDec(buffer[1] & 0x7F);
     *hour = bcdToDec(buffer[2] & 0x3F);
 
@@ -338,7 +346,7 @@ bool ErriezDS1307::getTime(uint8_t *hour, uint8_t *min, uint8_t *sec)
  * \retval true
  *      Success.
  * \retval false
- *      Set time failed.
+ *      Set date/time failed.
  */
 bool ErriezDS1307::setDateTime(uint8_t hour, uint8_t min, uint8_t sec,
                                uint8_t mday, uint8_t mon, uint16_t year,
@@ -357,6 +365,50 @@ bool ErriezDS1307::setDateTime(uint8_t hour, uint8_t min, uint8_t sec,
 
     // Write date/time to RTC
     return write(&dt);
+}
+
+/*!
+ * \brief Get date time
+ * \param hour
+ *      Hours 0..23
+ * \param min
+ *      Minutes 0..59
+ * \param sec
+ *      Seconds 0..59
+ * \param mday
+ *      Day of the month 1..31
+ * \param mon
+ *      Month 1..12 (1=January)
+ * \param year
+ *      Year 2000..2099
+ * \param wday
+ *      Day of the week 0..6 (0=Sunday, .. 6=Saturday)
+ * \retval true
+ *      Success.
+ * \retval false
+ *      Get date/time failed.
+ */
+bool ErriezDS1307::getDateTime(uint8_t *hour, uint8_t *min, uint8_t *sec,
+                               uint8_t *mday, uint8_t *mon, uint16_t *year,
+                               uint8_t *wday)
+{
+    struct tm dt;
+
+    // Read date/time from RTC
+    if (!read(&dt)) {
+        return false;
+    }
+
+    // Set return values
+    *hour = dt.tm_hour;
+    *min = dt.tm_min;
+    *sec = dt.tm_sec;
+    *mday = dt.tm_mday;
+    *mon = dt.tm_mon + 1;
+    *year = dt.tm_year + 1900;
+    *wday = dt.tm_wday;
+
+    return true;
 }
 
 /*!
@@ -425,13 +477,17 @@ uint8_t ErriezDS1307::readRegister(uint8_t reg)
 }
 
 /*!
- * \brief Write to RTC register.
+ * \brief Write register.
  * \details
  *      Please refer to the RTC datasheet.
  * \param reg
  *      RTC register number 0x00..0x12.
  * \param value
  *      8-bit unsigned register value.
+ * \retval true
+ *      Success
+ * \retval false
+ *      Write register failed
  */
 bool ErriezDS1307::writeRegister(uint8_t reg, uint8_t value)
 {
@@ -447,19 +503,19 @@ bool ErriezDS1307::writeRegister(uint8_t reg, uint8_t value)
  *      RTC register number 0x00..0x07.
  * \param buffer
  *      Buffer.
- * \param len
+ * \param writeLen
  *      Buffer length. Writing is only allowed within valid RTC registers.
  * \retval true
  *      Success
  * \retval false
  *      I2C write failed.
  */
-bool ErriezDS1307::writeBuffer(uint8_t reg, void *buffer, uint8_t len)
+bool ErriezDS1307::writeBuffer(uint8_t reg, void *buffer, uint8_t writeLen)
 {
     // Start I2C transfer by writing the I2C address, register number and optional buffer
     Wire.beginTransmission(DS1307_ADDR);
     Wire.write(reg);
-    for (uint8_t i = 0; i < len; i++) {
+    for (uint8_t i = 0; i < writeLen; i++) {
         Wire.write(((uint8_t *)buffer)[i]);
     }
     if (Wire.endTransmission(true) != 0) {
@@ -475,14 +531,14 @@ bool ErriezDS1307::writeBuffer(uint8_t reg, void *buffer, uint8_t len)
  *      RTC register number 0x00..0x07.
  * \param buffer
  *      Buffer.
- * \param len
+ * \param readLen
  *      Buffer length. Reading is only allowed within valid RTC registers.
  * \retval true
  *      Success
  * \retval false
  *      I2C read failed.
  */
-bool ErriezDS1307::readBuffer(uint8_t reg, void *buffer, uint8_t len)
+bool ErriezDS1307::readBuffer(uint8_t reg, void *buffer, uint8_t readLen)
 {
     // Start I2C transfer by writing the I2C address and register number
     Wire.beginTransmission(DS1307_ADDR);
@@ -491,8 +547,8 @@ bool ErriezDS1307::readBuffer(uint8_t reg, void *buffer, uint8_t len)
     if (Wire.endTransmission(false) != 0) {
         return false;
     }
-    Wire.requestFrom((uint8_t)DS1307_ADDR, len);
-    for (uint8_t i = 0; i < len; i++) {
+    Wire.requestFrom((uint8_t)DS1307_ADDR, readLen);
+    for (uint8_t i = 0; i < readLen; i++) {
         ((uint8_t *)buffer)[i] = (uint8_t)Wire.read();
     }
 

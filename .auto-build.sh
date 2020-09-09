@@ -14,7 +14,7 @@ echo "Starting auto-build script..."
 function autobuild()
 {
     # Set environment variables
-    BOARDS_AVR="--board uno --board micro --board miniatmega328 --board nanoatmega328new --board pro16MHzatmega328 --board pro8MHzatmega328 --board megaatmega2560 --board leonardo"
+    BOARDS_AVR="--board uno --board megaatmega2560 --board leonardo"
     BOARDS_ARM="--board due"
     BOARDS_ESP="--board d1_mini --board nodemcuv2 --board lolin_d32"
 
@@ -22,10 +22,16 @@ function autobuild()
     platformio lib --global install https://github.com/Erriez/ErriezSerialTerminal
 
     echo "Building examples..."
-    platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307DateStrings/ErriezDS1307DateStrings.ino
-    platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307Read/ErriezDS1307Read.ino
-    platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307SetDateTime/ErriezDS1307SetDateTime.ino
+    platformio ci --lib="examples/ErriezDS1307Alarm" --lib="." ${BOARDS_AVR} ${BOARDS_ESP} examples/ErriezDS1307Alarm/ErriezDS1307Alarm.ino
+    platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307Bare/ErriezDS1307Bare.ino
+    platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307DumpRegisters/ErriezDS1307DumpRegisters.ino
+    platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307SetBuildDateTime/ErriezDS1307SetBuildDateTime.ino
+    platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307SetGetDateTime/ErriezDS1307SetGetDateTime.ino
+    platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307SetGetTime/ErriezDS1307SetGetTime.ino
+    platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307SQWInterrupt/ErriezDS1307SQWInterrupt.ino
+    platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307Terminal/ErriezDS1307Terminal.ino
     platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307Test/ErriezDS1307Test.ino
+    platformio ci --lib="." ${BOARDS_AVR} ${BOARDS_ARM} ${BOARDS_ESP} examples/ErriezDS1307WriteRead/ErriezDS1307WriteRead.ino
 }
 
 function generate_doxygen()

@@ -23,7 +23,7 @@
  */
 
 /*!
- * \brief DS1307 RTC set date/time example for Arduino
+ * \brief DS1307 RTC set build date/time example for Arduino
  * \details
  *    Source:         https://github.com/Erriez/ErriezDS1307
  *    Documentation:  https://erriez.github.io/ErriezDS1307
@@ -33,7 +33,7 @@
 #include <ErriezDS1307.h>
 
 // Create DS1307 RTC object
-ErriezDS1307 ds1307;
+ErriezDS1307 rtc;
 
 // Global date/time object
 struct tm dt;
@@ -42,17 +42,17 @@ struct tm dt;
 void rtcInit()
 {
     // Initialize RTC
-    while (!ds1307.begin()) {
-        Serial.println(F("Error: DS1307 not found"));
+    while (!rtc.begin()) {
+        Serial.println(F("RTC not found"));
         delay(3000);
     }
 
     // Enable RTC clock
-    ds1307.clockEnable(true);
+    rtc.clockEnable(true);
 
     // Set square wave out pin
     // SquareWaveDisable, SquareWave1Hz, SquareWave4096Hz, SquareWave8192Hz, SquareWave32768Hz
-    ds1307.setSquareWave(SquareWaveDisable);
+    rtc.setSquareWave(SquareWaveDisable);
 }
 
 bool getBuildTime(const char *str)
@@ -127,7 +127,7 @@ bool rtcSetDateTime()
 
     // Set new date time
     Serial.print(F("Set RTC date time..."));
-    if (!ds1307.write(&dt)) {
+    if (!rtc.write(&dt)) {
         Serial.println(F("FAILED"));
     } else {
         Serial.println(F("OK"));
@@ -165,7 +165,7 @@ void setup()
 void loop()
 {
     // Get date/time
-    if (!ds1307.read(&dt)) {
+    if (!rtc.read(&dt)) {
         Serial.println(F("RTC read failed"));
     } else {
         Serial.println(asctime(&dt));

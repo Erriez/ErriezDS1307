@@ -11,8 +11,8 @@ This is a DS1307 I2C RTC library for Arduino.
 * libc `<time.h>` compatible
 * Read/write date/time `struct tm`
 * Set/get Unix epoch UTC `time_t`
-* Set/get time (hours, minutes, seconds)
-* Set date and time
+* Set/get time (hour, min, sec)
+* Set/get date and time (hour, min, sec, mday, mon, year, wday)
 * Control `SQW` signal (disable / 1Hz / 4096Hz / 8192Hz / 32768Hz)
 * Full RTC register access
 
@@ -42,15 +42,22 @@ Other unlisted MCU's may work, but are not tested.
 
 Arduino IDE | Examples | Erriez DS1307 RTC:
 
-* [ErriezDS1307SetDateTime](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307SetDateTime/ErriezDS1307SetDateTime.ino) Set date time.
-* [ErriezDS1307Read](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307Read/ErriezDS1307Read.ino) Read example.
-* [ErriezDS1307Test](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307Test/ErriezDS1307Test.ino) RTC test.
+* [Alarm](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307Alarm/ErriezDS1307Alarm.ino) Software alarm
+* [Bare](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307Bare/ErriezDS1307Bare.ino) Bare example without a library
+* [DumpRegisters](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307DumpRegisters/ErriezDS1307DumpRegisters.ino) Dump registers for debugging
+* [SetBuildDateTime](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307SetBuildDateTime/ErriezDS1307SetBuildDateTime.ino) Set build date/time
+* [SetGetDateTime](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307SetGetDateTime/ErriezDS1307SetGetDateTime.ino) Set/get date and time
+* [SetGetTime](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307SetGetTime/ErriezDS1307SetGetTime.ino) Set/get time
+* [SQWInterrupt](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307SQWInterrupt/ErriezDS1307SQWInterrupt.ino) 1Hz SQW interrupt pin
+* [Terminal](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307Terminal/ErriezDS1307Terminal.ino) Serial terminal example
+* [Test](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307Test/ErriezDS1307Test.ino) Regression test
+* [WriteRead](https://github.com/Erriez/ErriezDS1307/blob/master/examples/ErriezDS1307WriteRead/ErriezDS1307WriteRead.ino) Write/read `struct tm`
 
 ## Documentation
 
-- [Doxygen online HTML](https://erriez.github.io/ErriezDS1307) 
-- [Doxygen PDF](https://github.com/Erriez/ErriezDS1307/blob/master/ErriezDS1307.pdf)
-- [DS1307 datasheet](https://github.com/Erriez/ErriezDS1307/blob/master/extras/DS1307.pdf)
+* [Doxygen online HTML](https://erriez.github.io/ErriezDS1307)
+* [Doxygen PDF](https://github.com/Erriez/ErriezDS1307/blob/master/ErriezDS1307.pdf)
+* [DS1307 datasheet](https://github.com/Erriez/ErriezDS1307/blob/master/extras/DS1307.pdf)
 
 
 ## Usage
@@ -59,12 +66,12 @@ Arduino IDE | Examples | Erriez DS1307 RTC:
 
 ```c++
 #include <Wire.h>
-#include <ErriezDS1307.h> 
+#include <ErriezDS1307.h>
 
 // Create RTC object
 ErriezDS1307 ds1307;
 
-void setup() 
+void setup()
 {
     // Initialize I2C
     Wire.begin();
@@ -72,7 +79,7 @@ void setup()
     
     // Initialize RTC
     while (!ds1307.begin()) {
-        Serial.println(F("Error: DS1307 not found"));
+        Serial.println(F("RTC not found"));
         delay(3000);
     }
 
@@ -91,7 +98,7 @@ if (ds1307.isOscillatorStopped()) {
     // Set new date/time before reading date/time.
 
     // Enable oscillator
-    ds1302.clockEnable(true);
+    ds1307.clockEnable(true);
 }
 ```
 
@@ -117,7 +124,7 @@ if (!rtc.getTime(&hour, &minute, &second)) {
 }
 ```
 
-**Set date time**
+**Set date and time**
 
 ```c++
 // Write RTC date/time: 13:45:09  31 December 2019  2=Tuesday
@@ -126,10 +133,35 @@ if (!ds1307.setDateTime(13, 45, 9,  31, 12, 2019,  2) {
 }
 ```
 
+**Get date/time**
+
+```c++
+uint8_t hour;
+uint8_t min;
+uint8_t sec;
+uint8_t mday;
+uint8_t mon;
+uint16_t year;
+uint8_t wday;
+
+// Read RTC date/time
+if (!ds1307.getDateTime(&hour, &min, &sec, &mday, &mon, &year, &wday) {
+    // Error: RTC read failed
+}
+
+// hour: 0..23
+// min: 0..59
+// sec: 0..59
+// mday: 1..31
+// mon: 1..12
+// year: 2000..2099
+// wday: 0..6 (0=Sunday .. 6=Saturday)
+```
+
 **Write date/time struct tm**
 
 ```c++
-struct tm dt = {0};
+struct tm dt;
 
 dt.tm_hour = 12;
 dt.tm_min = 34;
@@ -147,7 +179,7 @@ if (!ds1307.write(&dt)) {
 **Read date/time struct tm**
 
 ```c++
-struct tm dt = {0};
+struct tm dt;
 
 // Read RTC date/time
 if (!ds1307.read(&dt)) {
