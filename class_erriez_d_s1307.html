@@ -83,7 +83,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a091d875739b1e372651596fb356bcfb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read RTC CH (Clock Halt) from seconds register.  <a href="#a091d875739b1e372651596fb356bcfb7">More...</a><br /></td></tr>
 <tr class="separator:a091d875739b1e372651596fb356bcfb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e434e5a26ec5766f553e1015cf6ca7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_erriez_d_s1307.html#a2e434e5a26ec5766f553e1015cf6ca7f">clockEnable</a> (bool enable=true)</td></tr>
-<tr class="memdesc:a2e434e5a26ec5766f553e1015cf6ca7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable oscillator (Clock Halt bit in seconds register).  <a href="#a2e434e5a26ec5766f553e1015cf6ca7f">More...</a><br /></td></tr>
+<tr class="memdesc:a2e434e5a26ec5766f553e1015cf6ca7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable oscillator.  <a href="#a2e434e5a26ec5766f553e1015cf6ca7f">More...</a><br /></td></tr>
 <tr class="separator:a2e434e5a26ec5766f553e1015cf6ca7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3534f588441ba96c6b12475f0d440f49"><td class="memItemLeft" align="right" valign="top">time_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_erriez_d_s1307.html#a3534f588441ba96c6b12475f0d440f49">getEpoch</a> ()</td></tr>
 <tr class="memdesc:a3534f588441ba96c6b12475f0d440f49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read Unix UTC epoch time_t.  <a href="#a3534f588441ba96c6b12475f0d440f49">More...</a><br /></td></tr>
@@ -106,6 +106,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1c72a09b361929a22cc61571061b254f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_erriez_d_s1307.html#a1c72a09b361929a22cc61571061b254f">setDateTime</a> (uint8_t hour, uint8_t min, uint8_t sec, uint8_t mday, uint8_t mon, uint16_t year, uint8_t wday)</td></tr>
 <tr class="memdesc:a1c72a09b361929a22cc61571061b254f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set date time.  <a href="#a1c72a09b361929a22cc61571061b254f">More...</a><br /></td></tr>
 <tr class="separator:a1c72a09b361929a22cc61571061b254f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25dcc03f734e2189f710dde36e50fb01"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_erriez_d_s1307.html#a25dcc03f734e2189f710dde36e50fb01">getDateTime</a> (uint8_t *hour, uint8_t *min, uint8_t *sec, uint8_t *mday, uint8_t *mon, uint16_t *year, uint8_t *wday)</td></tr>
+<tr class="memdesc:a25dcc03f734e2189f710dde36e50fb01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get date time.  <a href="#a25dcc03f734e2189f710dde36e50fb01">More...</a><br /></td></tr>
+<tr class="separator:a25dcc03f734e2189f710dde36e50fb01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb307af64c104bc9551eec2f9fe4920f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_erriez_d_s1307.html#adb307af64c104bc9551eec2f9fe4920f">setSquareWave</a> (<a class="el" href="_erriez_d_s1307_8h.html#aa45f48b2c6f58f91a278a1601b211140">SquareWave</a> squareWave)</td></tr>
 <tr class="memdesc:adb307af64c104bc9551eec2f9fe4920f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure SQW (Square Wave) output pin.  <a href="#adb307af64c104bc9551eec2f9fe4920f">More...</a><br /></td></tr>
 <tr class="separator:adb307af64c104bc9551eec2f9fe4920f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,7 +122,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aad06831a2caa667f4060c4a23f77c6cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read register.  <a href="#aad06831a2caa667f4060c4a23f77c6cd">More...</a><br /></td></tr>
 <tr class="separator:aad06831a2caa667f4060c4a23f77c6cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6be1d07e5d3798215f00ebe9f810fbe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_erriez_d_s1307.html#ad6be1d07e5d3798215f00ebe9f810fbe">writeRegister</a> (uint8_t reg, uint8_t value)</td></tr>
-<tr class="memdesc:ad6be1d07e5d3798215f00ebe9f810fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write to RTC register.  <a href="#ad6be1d07e5d3798215f00ebe9f810fbe">More...</a><br /></td></tr>
+<tr class="memdesc:ad6be1d07e5d3798215f00ebe9f810fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write register.  <a href="#ad6be1d07e5d3798215f00ebe9f810fbe">More...</a><br /></td></tr>
 <tr class="separator:ad6be1d07e5d3798215f00ebe9f810fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b2b5f972c2cd9ebdb12d4a51466345a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_erriez_d_s1307.html#a7b2b5f972c2cd9ebdb12d4a51466345a">readBuffer</a> (uint8_t reg, void *buffer, uint8_t len)</td></tr>
 <tr class="memdesc:a7b2b5f972c2cd9ebdb12d4a51466345a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read buffer from RTC.  <a href="#a7b2b5f972c2cd9ebdb12d4a51466345a">More...</a><br /></td></tr>
@@ -158,7 +161,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Decimal value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00391">391</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00443">443</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -206,8 +209,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Enable or disable oscillator (Clock Halt bit in seconds register). </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Enable or disable oscillator. </p>
+<p>Clear or set CH (Clock Halt) bit to seconds register </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">enable</td><td>true: Enable RTC clock.<br />
  false: Stop RTC clock. </td></tr>
@@ -222,7 +225,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00080">80</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00105">105</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -251,7 +254,88 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>BCD encoded value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00403">403</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00455">455</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a25dcc03f734e2189f710dde36e50fb01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25dcc03f734e2189f710dde36e50fb01">&#9670;&nbsp;</a></span>getDateTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ErriezDS1307::getDateTime </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>hour</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>sec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>mday</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>mon</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t *&#160;</td>
+          <td class="paramname"><em>year</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>wday</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get date time. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hour</td><td>Hours 0..23 </td></tr>
+    <tr><td class="paramname">min</td><td>Minutes 0..59 </td></tr>
+    <tr><td class="paramname">sec</td><td>Seconds 0..59 </td></tr>
+    <tr><td class="paramname">mday</td><td>Day of the month 1..31 </td></tr>
+    <tr><td class="paramname">mon</td><td>Month 1..12 (1=January) </td></tr>
+    <tr><td class="paramname">year</td><td>Year 2000..2099 </td></tr>
+    <tr><td class="paramname">wday</td><td>Day of the week 0..6 (0=Sunday, .. 6=Saturday) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">true</td><td>Success. </td></tr>
+    <tr><td class="paramname">false</td><td>Get date/time failed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00391">391</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -273,7 +357,7 @@ Public Member Functions</h2></td></tr>
 <p>Read Unix UTC epoch time_t. </p>
 <dl class="section return"><dt>Returns</dt><dd>Unix epoch time_t seconds since 1970. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00128">128</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00130">130</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -326,7 +410,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00295">295</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00303">303</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -348,13 +432,13 @@ Public Member Functions</h2></td></tr>
 <p>Read RTC CH (Clock Halt) from seconds register. </p>
 <p>The application is responsible for checking the CH (Clock Halt) bit before reading date/time date. This function may be used to judge the validity of the date/time registers. </p><dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">true</td><td>RTC oscillator is running. </td></tr>
+    <tr><td class="paramname">true</td><td>RTC clock is running. </td></tr>
     <tr><td class="paramname">false</td><td>The date/time data is invalid when the CH bit is set. The application should enable the oscillator, or program a new date/time. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00111">111</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00081">81</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -384,12 +468,12 @@ Public Member Functions</h2></td></tr>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
     <tr><td class="paramname">true</td><td>Success </td></tr>
-    <tr><td class="paramname">false</td><td>RTC read failed. </td></tr>
+    <tr><td class="paramname">false</td><td>Read failed. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00186">186</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00190">190</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -415,7 +499,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>len</em>&#160;</td>
+          <td class="paramname"><em>readLen</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -430,7 +514,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">reg</td><td>RTC register number 0x00..0x07. </td></tr>
     <tr><td class="paramname">buffer</td><td>Buffer. </td></tr>
-    <tr><td class="paramname">len</td><td>Buffer length. Reading is only allowed within valid RTC registers. </td></tr>
+    <tr><td class="paramname">readLen</td><td>Buffer length. Reading is only allowed within valid RTC registers. </td></tr>
   </table>
   </dd>
 </dl>
@@ -442,7 +526,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00485">485</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00541">541</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -471,7 +555,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>value 8-bit unsigned register value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00417">417</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00469">469</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -547,12 +631,12 @@ Public Member Functions</h2></td></tr>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
     <tr><td class="paramname">true</td><td>Success. </td></tr>
-    <tr><td class="paramname">false</td><td>Set time failed. </td></tr>
+    <tr><td class="paramname">false</td><td>Set date/time failed. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00343">343</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00351">351</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -579,9 +663,15 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>See write returns. </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">true</td><td>Success. </td></tr>
+    <tr><td class="paramname">false</td><td>Set epoch failed. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00158">158</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00162">162</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -621,7 +711,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00378">378</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00430">430</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -674,7 +764,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00269">269</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00277">277</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -701,8 +791,15 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">true</td><td>Success. </td></tr>
+    <tr><td class="paramname">false</td><td>Write failed. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00237">237</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00245">245</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -728,7 +825,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>len</em>&#160;</td>
+          <td class="paramname"><em>writeLen</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -743,7 +840,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">reg</td><td>RTC register number 0x00..0x07. </td></tr>
     <tr><td class="paramname">buffer</td><td>Buffer. </td></tr>
-    <tr><td class="paramname">len</td><td>Buffer length. Writing is only allowed within valid RTC registers. </td></tr>
+    <tr><td class="paramname">writeLen</td><td>Buffer length. Writing is only allowed within valid RTC registers. </td></tr>
   </table>
   </dd>
 </dl>
@@ -755,7 +852,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00457">457</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00513">513</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
@@ -785,7 +882,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Write to RTC register. </p>
+<p>Write register. </p>
 <p>Please refer to the RTC datasheet. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reg</td><td>RTC register number 0x00..0x12. </td></tr>
@@ -793,8 +890,15 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">true</td><td>Success </td></tr>
+    <tr><td class="paramname">false</td><td>Write register failed </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00436">436</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_erriez_d_s1307_8cpp_source.html#l00492">492</a> of file <a class="el" href="_erriez_d_s1307_8cpp_source.html">ErriezDS1307.cpp</a>.</p>
 
 </div>
 </div>
