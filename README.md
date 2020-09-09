@@ -18,7 +18,7 @@ This is a DS1307 I2C RTC library for Arduino.
 
 ## Hardware
 
-Any Arduino hardware with a TWI interface and ```Wire.h``` support.
+Any Arduino hardware with a TWI interface and `Wire.h` support.
 
 ## Pins
 
@@ -69,23 +69,19 @@ Arduino IDE | Examples | Erriez DS1307 RTC:
 #include <ErriezDS1307.h>
 
 // Create RTC object
-ErriezDS1307 ds1307;
+ErriezDS1307 rtc;
 
 void setup()
 {
-    // Initialize I2C
+    // Initialize TWI with a 100kHz (default)
     Wire.begin();
     Wire.setClock(100000);
     
     // Initialize RTC
-    while (!ds1307.begin()) {
+    while (!rtc.begin()) {
         Serial.println(F("RTC not found"));
         delay(3000);
     }
-
-    // Set square wave out pin
-    // SquareWaveDisable, SquareWave1Hz, SquareWave4096Hz, SquareWave8192Hz, SquareWave32768Hz
-    ds1307.setSquareWave(SquareWaveDisable);
 }
 ```
 
@@ -93,12 +89,12 @@ void setup()
 
 ```c++
 // Check oscillator status
-if (ds1307.isOscillatorStopped()) {
-    // Error: DS1307 RTC oscillator stopped. Date/time cannot be trusted. 
+if (!rtc.isRunning()) {
+    // Error: RTC oscillator stopped. Date/time cannot be trusted. 
     // Set new date/time before reading date/time.
 
     // Enable oscillator
-    ds1307.clockEnable(true);
+    rtc.clockEnable(true);
 }
 ```
 
@@ -106,8 +102,8 @@ if (ds1307.isOscillatorStopped()) {
 
 ```c++
 // Write time to RTC
-if (!ds1307.setTime(12, 0, 0)) {
-    // Error: RTC write failed
+if (!rtc.setTime(12, 0, 0)) {
+    // Error: Set time failed
 }
 ```
 
@@ -128,12 +124,12 @@ if (!rtc.getTime(&hour, &minute, &second)) {
 
 ```c++
 // Write RTC date/time: 13:45:09  31 December 2019  2=Tuesday
-if (!ds1307.setDateTime(13, 45, 9,  31, 12, 2019,  2) {
+if (!rtc.setDateTime(13, 45, 9,  31, 12, 2019,  2) {
     // Error: RTC write failed
 }
 ```
 
-**Get date/time**
+**Get date and time**
 
 ```c++
 uint8_t hour;
@@ -145,7 +141,7 @@ uint16_t year;
 uint8_t wday;
 
 // Read RTC date/time
-if (!ds1307.getDateTime(&hour, &min, &sec, &mday, &mon, &year, &wday) {
+if (!rtc.getDateTime(&hour, &min, &sec, &mday, &mon, &year, &wday) {
     // Error: RTC read failed
 }
 
@@ -171,7 +167,7 @@ dt.tm_mon = 1; // 0=January
 dt.tm_year = 2020-1900;
 dt.tm_wday = 6; // 0=Sunday
 
-if (!ds1307.write(&dt)) {
+if (!rtc.write(&dt)) {
     // Error: RTC Read failed
 }
 ```
@@ -182,7 +178,7 @@ if (!ds1307.write(&dt)) {
 struct tm dt;
 
 // Read RTC date/time
-if (!ds1307.read(&dt)) {
+if (!rtc.read(&dt)) {
     // Error: RTC read failed
 }
 ```
@@ -193,7 +189,7 @@ if (!ds1307.read(&dt)) {
 time_t t;
 
 // Read Unix epoch UTC from RTC
-if (!ds1307.getEpoch(&t)) {
+if (!rtc.getEpoch(&t)) {
     // Error: RTC read failed
 }
 ```
@@ -202,7 +198,7 @@ if (!ds1307.getEpoch(&t)) {
 
 ```c++
 // Write Unix epoch UTC to RTC
-if (!ds1307.setEpoch(1599416430UL)) {
+if (!rtc.setEpoch(1599416430UL)) {
     // Error: Set epoch failed
 }
 ```
@@ -220,7 +216,8 @@ rtc.setSquareWave(SquareWave32768Hz);	// 32768Hz
 
 ## Library dependencies
 
-* ```Wire.h```
+* `Wire.h`
+* `Terminal.ino` requires `ErriezSerialTerminal` library.
 
 
 ## Library installation
